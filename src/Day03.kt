@@ -1,11 +1,5 @@
-fun main() {
-    fun toIntArray(binary: String): List<Int> {
-        return binary.chunked(1) .map { it.toInt() }
-    }
-
-    fun toDecimal(binary: List<Int>) = binary.map { it.toString() }.joinToString("").toInt(2)
-
-    fun part1(input: List<String>): Int {
+class Day03: Day() {
+    override fun part1(): Int {
         val total = input.size
 
         val countOfOnes = input.map {toIntArray(it)}
@@ -20,7 +14,7 @@ fun main() {
         return gammaInt * epsilonInt
     }
 
-    fun part2(input: List<String>): Int {
+    override fun part2(): Int {
         var o2Remaining = input
         for (i in input[0].indices) {
             val countOfOnes = o2Remaining.map { it.substring(i,i+1).toInt() }.sum()
@@ -45,7 +39,13 @@ fun main() {
         return o2Int * co2Int
     }
 
-    val input = readInput("Day03")
-    println(part1(input))
-    println(part2(input))
+    private fun toIntArray(binary: String): List<Int> {
+        return binary.chunked(1) .map { it.toInt() }
+    }
+
+    private fun toDecimal(binary: List<Int>) = binary.map { it.toString() }.joinToString("").toInt(2)
+}
+
+fun main() {
+    Day03().run()
 }

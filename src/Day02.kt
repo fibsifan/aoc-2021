@@ -1,14 +1,10 @@
-
-fun main() {
-    fun prepareInput(input: List<String>): List<Pair<String, Int>> {
-        return input.map {
-            val split = it.split(" ")
-            Pair(split[0], split[1].toInt())
-        }
+class Day02: Day() {
+    val preparedInput = input.map {
+        val split = it.split(" ")
+        Pair(split[0], split[1].toInt())
     }
 
-    fun part1(input: List<String>): Int {
-        val preparedInput = prepareInput(input)
+    override fun part1(): Int {
         val hor = preparedInput.filter { "forward".equals(it.first) }
             .map {it.second }.sum()
         val depth = preparedInput.filter { "down".equals(it.first) }
@@ -17,8 +13,7 @@ fun main() {
         return hor * depth
     }
 
-    fun part2(input: List<String>): Int {
-        val preparedInput = prepareInput(input)
+    override fun part2(): Int {
         val aims = preparedInput.runningFold(0) {
                 aim,
                 pair ->
@@ -27,7 +22,7 @@ fun main() {
             else aim
         }
         val depthHor = preparedInput.foldIndexed(Pair(0,0)) {
-            index, depthHor, currentInput ->
+                index, depthHor, currentInput ->
             if("forward".equals(currentInput.first))
                 Pair(depthHor.first + aims[index]*currentInput.second,
                     depthHor.second+currentInput.second)
@@ -36,8 +31,8 @@ fun main() {
         }
         return depthHor.first*depthHor.second
     }
+}
 
-    val input = readInput("Day02")
-    println(part1(input))
-    println(part2(input))
+fun main() {
+    Day02().run()
 }
