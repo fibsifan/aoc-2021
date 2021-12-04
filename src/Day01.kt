@@ -1,15 +1,21 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        val intInput = input.map { it.toInt() }
+        return intInput.subList(0, intInput.size-1)
+            .zip(intInput.subList(1, intInput.size))
+            .map { if (it.first < it.second) 1 else 0 }
+            .sum()
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val intInput = input.map { it.toInt() }
+        return intInput.windowed(4,1) {
+            if (it.subList(0,2).sum() < it.subList(1,3).sum()) 1 else 0
+        }.sum()
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    //val testInput = readInput("Day01_test")
+    //check(part1(testInput) == 1)
 
     val input = readInput("Day01")
     println(part1(input))
