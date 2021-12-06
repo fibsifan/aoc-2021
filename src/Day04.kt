@@ -1,10 +1,10 @@
 class Day04: Day() {
-    val randomNumbers = input[0].split(",").map {it.toInt()}
+    val randomNumbers = input[0].split(",").map {it.toLong()}
     val boards = input.subList(1, input.size)
         .chunked(6)
         .map{parseBoard(it)}
 
-    override fun part1(): Int {
+    override fun part1(): Long {
         for ((index, randomNumber) in randomNumbers.withIndex()) {
             boards.forEach { it.check(randomNumber) }
             if (index > 5) {
@@ -17,7 +17,7 @@ class Day04: Day() {
         TODO("What if we get here?")
     }
 
-    override fun part2(): Int {
+    override fun part2(): Long {
         val boardsInTheGame = boards.toMutableList()
         for ((index, randomNumber) in randomNumbers.withIndex()) {
             boards.forEach { it.check(randomNumber) }
@@ -44,13 +44,13 @@ class Board(text: List<String>) {
     val rowHitCounts = mutableListOf(0, 0, 0, 0, 0)
     val colHitCounts = mutableListOf(0, 0, 0, 0, 0)
     val board = createBoardMap(text)
-    var sum = 0
+    var sum = 0L
 
-    private fun createBoardMap(text: List<String>): MutableMap<Int, Pair<Int, Int>> {
-        val board = mutableMapOf<Int, Pair<Int,Int>>()
+    private fun createBoardMap(text: List<String>): MutableMap<Long, Pair<Int, Int>> {
+        val board = mutableMapOf<Long, Pair<Int,Int>>()
         for ((i, line) in text.withIndex()) {
             val chunkedLine = line.chunked(3) { it.trim().toString() }
-            for ((j, number) in chunkedLine.map { it.toInt() }.withIndex()) {
+            for ((j, number) in chunkedLine.map { it.toLong() }.withIndex()) {
                 board.put(number, Pair(i, j))
                 sum += number
             }
@@ -58,7 +58,7 @@ class Board(text: List<String>) {
         return board
     }
 
-    fun check(number: Int) {
+    fun check(number: Long) {
         if (board.containsKey(number)) {
             rowHitCounts[board.get(number)!!.first] +=1
             colHitCounts[board.get(number)!!.second] += 1
@@ -68,7 +68,7 @@ class Board(text: List<String>) {
     }
 
     fun hasWon(): Boolean {
-        return rowHitCounts.any { it == 5 } || colHitCounts.any { it == 5}
+        return rowHitCounts.any { it == 5 } || colHitCounts.any { it == 5 }
     }
 }
 

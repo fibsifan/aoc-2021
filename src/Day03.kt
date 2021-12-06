@@ -1,5 +1,5 @@
 class Day03: Day() {
-    override fun part1(): Int {
+    override fun part1(): Long {
         val total = input.size
 
         val countOfOnes = input.map {toIntArray(it)}
@@ -14,7 +14,7 @@ class Day03: Day() {
         return gammaInt * epsilonInt
     }
 
-    override fun part2(): Int {
+    override fun part2(): Long {
         var o2Remaining = input
         for (i in input[0].indices) {
             val countOfOnes = o2Remaining.map { it.substring(i,i+1).toInt() }.sum()
@@ -34,16 +34,16 @@ class Day03: Day() {
                 break
             }
         }
-        val o2Int = o2Remaining[0].toInt(2)
-        val co2Int = co2Remaining[0].toInt(2)
+        val o2Int = o2Remaining[0].toLong(2)
+        val co2Int = co2Remaining[0].toLong(2)
         return o2Int * co2Int
     }
 
-    private fun toIntArray(binary: String): List<Int> {
-        return binary.chunked(1) .map { it.toInt() }
+    private fun toIntArray(binary: String): List<Long> {
+        return binary.chunked(1) .map { it.toLong() }
     }
 
-    private fun toDecimal(binary: List<Int>) = binary.map { it.toString() }.joinToString("").toInt(2)
+    private fun toDecimal(binary: List<Int>) = binary.map { it.toString() }.joinToString("").toLong(2)
 }
 
 fun main() {

@@ -1,37 +1,39 @@
 import kotlin.math.abs
 
-class Day05(test: Boolean = false, expected1: Int = 0, expected2: Int = 0): Day(test, expected1, expected2) {
-    private val ventLines = input.mapIndexed{lineNo, text -> parseVentLine(text, lineNo)}
+class Day05(test: Boolean = false, expected1: Long = 0L, expected2: Long = 0L): Day(test, expected1, expected2) {
+    private val ventLines = input.map{ parseVentLine(it)}
 
-    override fun part1(): Int {
+    override fun part1(): Long {
         return ventLines.filter { !it.diagonal }
             .flatMap { it.getPoints() }
             .groupingBy { it }
             .eachCount()
             .filter {it.value > 1}
             .size
+            .toLong()
     }
 
-    override fun part2(): Int {
+    override fun part2(): Long {
         return ventLines
             .flatMap { it.getPoints() }
             .groupingBy { it }
             .eachCount()
             .filter {it.value > 1}
             .size
+            .toLong()
     }
 
-    fun parseVentLine(text: String, line: Int): VentLine {
+    fun parseVentLine(text: String): VentLine {
         val (start, end) = text.split(" -> ")
             .map { it.split(",").map{it.toInt()} }
             .map { Point(it[0], it[1]) }
-        return VentLine(start, end, line)
+        return VentLine(start, end)
     }
 }
 
 data class Point(val x: Int, val y: Int)
 
-data class VentLine(val start: Point, val end: Point, val line: Int) {
+data class VentLine(val start: Point, val end: Point) {
     val diagonal = (start.x != end.x) && (start.y != end.y)
 
     fun getPoints(): List<Point> {
