@@ -5,15 +5,16 @@ plugins {
 repositories {
     mavenCentral()
 }
+dependencies {
+    testImplementation(kotlin("test"))
+}
 
 tasks {
-    sourceSets {
-        main {
-            java.srcDirs("src")
-        }
-    }
-
     wrapper {
         gradleVersion = "7.3"
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

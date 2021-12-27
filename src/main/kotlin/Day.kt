@@ -1,7 +1,7 @@
 import java.io.File
 
 abstract class Day(val test: Boolean = false, val expected1: Long = 0, val expected2: Long = 0) {
-    val input: List<String> = File("src", "${this::class.simpleName}${if (test) "_test" else ""}.txt")
+    val input: List<String> = File("src/${if(test) "test" else "main"}/resources", "${this::class.simpleName}${if (test) "_test" else ""}.txt")
         .readLines()
 
     abstract fun part1(): Long
