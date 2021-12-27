@@ -12,14 +12,14 @@ class Day15(test: Boolean = false) : Day(test, 40, 315) {
     }
 }
 
-private class Cave(input: List<String>, full: Boolean) {
+class Cave(input: List<String>, full: Boolean) {
     private val initialRisks = input.mapIndexed { line, risks ->
         risks.chunked(1).mapIndexed { column, risk ->
             CavePosition(Pair(line, column), risk.toByte())
         }
     }
 
-    val risks = if (full) {
+    private val risks = if (full) {
         (0 until initialRisks.size*5).map { line ->
             (0 until initialRisks[0].size*5).map { column ->
                 CavePosition(Pair(line, column), transformedRisk(line, column))
@@ -59,7 +59,7 @@ private class Cave(input: List<String>, full: Boolean) {
         }
     }
 
-    private fun transformedRisk(line: Int, column: Int): Byte {
+    fun transformedRisk(line: Int, column: Int): Byte {
         val modifier = line / initialRisks.size + column / initialRisks[0].size
         return ((initialRisks[line%initialRisks.size][column%initialRisks[0].size].risk-1+modifier)%9+1).toByte()
     }
