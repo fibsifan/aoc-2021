@@ -8,7 +8,7 @@ class Day09(test: Boolean = false): Day(test, 15, 1134) {
         }
 
         val minima = numbers.mapIndexed{ lineNo,line ->
-            line.filterIndexed { column, height ->
+            line.filterIndexed { column, _ ->
                 candidates[lineNo][column] && isMinInColumn(numbers, lineNo, column)
             }
         }
