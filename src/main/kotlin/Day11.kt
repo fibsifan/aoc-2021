@@ -1,9 +1,9 @@
 class Day11(test: Boolean = false): Day(test, 1656, 0) {
-    val valuesByPosition = input.flatMapIndexed { lineNo, line -> line
+    private val valuesByPosition = input.flatMapIndexed { lineNo, line -> line
         .chunked(1)
         .mapIndexed {columnNo, chunk -> Triple(lineNo, columnNo, chunk.toInt()) }}
         .associateBy({ Pair(it.first, it.second) }, {it.third}).toMutableMap()
-    val valuesByPosition2 = input.flatMapIndexed { lineNo, line -> line
+    private val valuesByPosition2 = input.flatMapIndexed { lineNo, line -> line
         .chunked(1)
         .mapIndexed {columnNo, chunk -> Triple(lineNo, columnNo, chunk.toInt()) }}
         .associateBy({ Pair(it.first, it.second) }, {it.third}).toMutableMap()

@@ -50,10 +50,10 @@ class Day13(test: Boolean = false) : Day(test, expected1 = 17L, expected2 = 16L)
     }
 
     private fun printMap(currentMap: Set<Pair<Int, Int>>) {
-        val xmax = currentMap.maxOf { it.first }
-        val ymax = currentMap.maxOf { it.second }
-        for (i in 0..ymax) {
-            for (j in 0..xmax) {
+        val xMax = currentMap.maxOf { it.first }
+        val yMax = currentMap.maxOf { it.second }
+        for (i in 0..yMax) {
+            for (j in 0..xMax) {
                 if (currentMap.contains(Pair(j, i))) {
                     print('#')
                 } else {

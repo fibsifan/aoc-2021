@@ -2,7 +2,7 @@ import java.util.ArrayDeque
 import kotlin.IllegalArgumentException
 
 class Day10(test: Boolean = false): Day(test, 26397, 288957) {
-    val chunks = input.map { line-> line.chunked(1) }
+    private val chunks = input.map { line-> line.chunked(1) }
     enum class Chunk(val char: String, val corruptionScore: Long = 0L, val completionScore: Long = 0L) {
         OPENING_PARENTHESIS("("),
         OPENING_BRACKET("["),
@@ -26,7 +26,7 @@ class Day10(test: Boolean = false): Day(test, 26397, 288957) {
             fun findByName(chunkChar: String): Chunk {
                 val result = values().firstOrNull { it.char == chunkChar }
                 if (result == null) {
-                    throw IllegalArgumentException("${chunkChar} is not a valid char.")
+                    throw IllegalArgumentException("$chunkChar is not a valid char.")
                 } else return result
             }
         }

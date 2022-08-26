@@ -2,7 +2,9 @@ import java.util.*
 
 class Day08(test: Boolean = false): Day(test, 26, 61229) {
     private val input2 = input
-        .map { it.split(" | ").map {it.split(" ").map { it.chunked(1).toSortedSet() } } }
+        .map { line -> line.split(" | ").map { digits ->
+            digits.split(" ").map { digit ->
+                digit.chunked(1).toSortedSet() } } }
         .map { Pair(it[0], it[1])}
 
     override fun part1(): Long {
@@ -14,7 +16,7 @@ class Day08(test: Boolean = false): Day(test, 26, 61229) {
     }
 
     override fun part2(): Long {
-        return input2.map { determineOutput(it) }.sum()
+        return input2.sumOf { determineOutput(it) }
     }
 
     private fun determineOutput(line: Pair<List<SortedSet<String>>, List<SortedSet<String>>>): Long {
@@ -27,7 +29,7 @@ class Day08(test: Boolean = false): Day(test, 26, 61229) {
         val zero = wholeLine.filter { it.size == 6 }.first { ((four subtract it) subtract one).size == 1 }.toSortedSet()
         val three = wholeLine.filter { it.size == 5 }.first { (it subtract one).size == 3 }.toSortedSet()
         val five = wholeLine.filter { it.size == 5 }.first { (it union six).size == 6}.toSortedSet()
-        val two = wholeLine.filter { it.size == 5 }.first { (it union six).equals(eight) && it != three }.toSortedSet()
+        val two = wholeLine.filter { it.size == 5 }.first { (it union six) == eight && it != three }.toSortedSet()
         val nine = wholeLine.first { it !in setOf(zero, one, two, three, four, five, six, seven, eight) }.toSortedSet()
 
         val map = mapOf(Pair(zero, 0L), Pair(one, 1L), Pair(two, 2L), Pair(three, 3L), Pair(four, 4L),

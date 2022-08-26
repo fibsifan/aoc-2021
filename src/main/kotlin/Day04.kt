@@ -1,6 +1,6 @@
 class Day04: Day() {
-    val randomNumbers = input[0].split(",").map {it.toLong()}
-    val boards = input.subList(1, input.size)
+    private val randomNumbers = input[0].split(",").map {it.toLong()}
+    private val boards = input.subList(1, input.size)
         .chunked(6)
         .map{parseBoard(it)}
 
@@ -9,7 +9,7 @@ class Day04: Day() {
             boards.forEach { it.check(randomNumber) }
             if (index > 5) {
                 val winningBoards = boards.filter { it.hasWon() }
-                if (winningBoards.size > 0) {
+                if (winningBoards.isNotEmpty()) {
                     return winningBoards[0].sum * randomNumber
                 }
             }
@@ -41,9 +41,9 @@ class Day04: Day() {
 }
 
 class Board(text: List<String>) {
-    val rowHitCounts = mutableListOf(0, 0, 0, 0, 0)
-    val colHitCounts = mutableListOf(0, 0, 0, 0, 0)
-    val board = createBoardMap(text)
+    private val rowHitCounts = mutableListOf(0, 0, 0, 0, 0)
+    private val colHitCounts = mutableListOf(0, 0, 0, 0, 0)
+    private val board = createBoardMap(text)
     var sum = 0L
 
     private fun createBoardMap(text: List<String>): MutableMap<Long, Pair<Int, Int>> {
@@ -51,7 +51,7 @@ class Board(text: List<String>) {
         for ((i, line) in text.withIndex()) {
             val chunkedLine = line.chunked(3) { it.trim().toString() }
             for ((j, number) in chunkedLine.map { it.toLong() }.withIndex()) {
-                board.put(number, Pair(i, j))
+                board[number] = Pair(i, j)
                 sum += number
             }
         }
@@ -60,8 +60,8 @@ class Board(text: List<String>) {
 
     fun check(number: Long) {
         if (board.containsKey(number)) {
-            rowHitCounts[board.get(number)!!.first] +=1
-            colHitCounts[board.get(number)!!.second] += 1
+            rowHitCounts[board[number]!!.first] +=1
+            colHitCounts[board[number]!!.second] += 1
             sum -= number
             board.remove(number)
         }

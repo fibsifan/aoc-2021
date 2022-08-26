@@ -1,8 +1,8 @@
 class Day06(test: Boolean = false, expected1: Long = 5934L, expected2: Long = 26984457539L): Day(test, expected1, expected2) {
-    val fishByAge = input[0].split(",")
+    private val fishByAge = input[0].split(",")
         .groupingBy { it }
         .aggregate { _, accumulator: Long?, _, first -> if (first) 1L else accumulator!! + 1L  }
-    val mapping = mapOf(
+    private val mapping = mapOf(
         Pair("0", listOf("6","8")),
         Pair("1", listOf("0")),
         Pair("2", listOf("1")),

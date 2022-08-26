@@ -1,5 +1,5 @@
 class Day09(test: Boolean = false): Day(test, 15, 1134) {
-    val numbers = input.map {it.chunked(1).map{it.toInt()}}
+    private val numbers = input.map {it.chunked(1).map{it.toInt()}}
     override fun part1(): Long {
         val candidates = numbers.map{ line ->
             listOf(line[0]<line[1]) + line.windowed(3, 1, false) { window ->
@@ -55,8 +55,8 @@ class Day09(test: Boolean = false): Day(test, 15, 1134) {
                         pointsByBasin[newBasin]!!.add(coordinates)
                         basinByPoint[coordinates] = newBasin
                         neighborsInMap.filter {it != first}
-                            .forEach {representant ->
-                                val oldBasin = basinByPoint[representant]!!
+                            .forEach {representative ->
+                                val oldBasin = basinByPoint[representative]!!
                                 pointsByBasin[oldBasin]!!.forEach {
                                     pointsByBasin[newBasin]!!.add(it)
                                     basinByPoint[it] = newBasin
@@ -80,6 +80,7 @@ class Day09(test: Boolean = false): Day(test, 15, 1134) {
             Pair(pair.first-1, pair.second),
             Pair(pair.first, pair.second-1),
             Pair(pair.first, pair.second+1))
+            .asSequence()
             .map { Pair(it, basinByPoint[it])}
             .filter { it.second != null }
             .distinctBy { it.second }

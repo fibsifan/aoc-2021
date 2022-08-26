@@ -2,7 +2,7 @@ import kotlin.math.abs
 import kotlin.math.roundToLong
 
 class Day07(test: Boolean = false): Day(test, 37, 168) {
-    val positions = input[0].split(",").map(String::toLong).sorted()
+    private val positions = input[0].split(",").map(String::toLong).sorted()
 
     override fun part1(): Long {
         val m = positions[positions.size/2]
@@ -21,7 +21,7 @@ class Day07(test: Boolean = false): Day(test, 37, 168) {
         // b/a - d/dm sum(|x_t - m|)/2a = m
         // d/dm sum(|x_t-m|)/2a < 0.5
         val m = (positions.sum().toDouble() / positions.size.toDouble()).roundToLong() // - 1, in case of the <0.5 part changing the rounding result...
-        return positions.map { ((it-m)*(it-m) + abs(it-m))/2}.sum()
+        return positions.sumOf { ((it - m) * (it - m) + abs(it - m)) / 2 }
     }
 }
 

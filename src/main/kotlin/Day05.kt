@@ -1,7 +1,7 @@
 import kotlin.math.abs
 
 class Day05(test: Boolean = false, expected1: Long = 0L, expected2: Long = 0L): Day(test, expected1, expected2) {
-    private val ventLines = input.map{ parseVentLine(it)}
+    private val ventLines = input.map{ ventLineString -> parseVentLine(ventLineString)}
 
     override fun part1(): Long {
         return ventLines.filter { !it.diagonal }
@@ -23,10 +23,10 @@ class Day05(test: Boolean = false, expected1: Long = 0L, expected2: Long = 0L): 
             .toLong()
     }
 
-    fun parseVentLine(text: String): VentLine {
+    private fun parseVentLine(text: String): VentLine {
         val (start, end) = text.split(" -> ")
-            .map { it.split(",").map{it.toInt()} }
-            .map { Point(it[0], it[1]) }
+            .map { position -> position.split(",").map{ coordinate -> coordinate.toInt() } }
+            .map { coordinates -> Point(coordinates[0], coordinates[1]) }
         return VentLine(start, end)
     }
 }
@@ -42,14 +42,14 @@ data class VentLine(val start: Point, val end: Point) {
         else if (start.x > end.x)
             start.x downTo end.x
         else // start.x == end.x
-            List(abs(end.y-start.y)+1, {start.x})
+            List(abs(end.y-start.y)+1) { start.x }
 
         val y = if (start.y < end.y)
             start.y..end.y
         else if (start.y > end.y)
             start.y downTo end.y
         else // start.y == end.y
-            List(abs(end.x-start.x)+1, {start.y})
+            List(abs(end.x-start.x)+1) { start.y }
 
         return x.zip(y) { xv, yv -> Point(xv, yv)}
     }

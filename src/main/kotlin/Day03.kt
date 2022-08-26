@@ -43,7 +43,7 @@ class Day03: Day() {
         return binary.chunked(1) .map { it.toLong() }
     }
 
-    private fun toDecimal(binary: List<Int>) = binary.map { it.toString() }.joinToString("").toLong(2)
+    private fun toDecimal(binary: List<Int>) = binary.joinToString("") { it.toString() }.toLong(2)
 }
 
 fun main() {

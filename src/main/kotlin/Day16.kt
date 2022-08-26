@@ -31,7 +31,7 @@ class Day16(test: Boolean = false) : Day(test, 20, 1) {
             length = _length
             data = null
         }
-        return Pair(Packet(version, typeId, data, subPackets), length+6)
+        return Pair(Packet(version, typeId, data, subPackets), length + 6)
     }
 
     private fun decodeLiteralValue(literalString: String): Pair<Long, Int> {
@@ -53,8 +53,9 @@ class Day16(test: Boolean = false) : Day(test, 20, 1) {
             "0" -> {
                 val bitLength = packetString.substring(1, 16).toInt(2)
                 val (subPackets, length) = decodeSubPackets(packetString.substring(16, 16 + bitLength))
-                return Pair(subPackets, length+16)
+                return Pair(subPackets, length + 16)
             }
+
             "1" -> {
                 val subPacketCount = packetString.substring(1, 12).toInt(2)
                 val subPackets: MutableList<Packet> = mutableListOf()
@@ -68,6 +69,7 @@ class Day16(test: Boolean = false) : Day(test, 20, 1) {
                 }
                 return Pair(subPackets, subPacketsLength)
             }
+
             else -> {
                 throw IllegalArgumentException("Unexpected lengthTypeId $lengthTypeId")
             }
@@ -103,7 +105,7 @@ private data class Packet(
     }
 
     private fun performOperation(): Long {
-        return when(typeId.toInt()) {
+        return when (typeId.toInt()) {
             0 -> subPackets.sumOf { it.getData() }
             1 -> subPackets.map { it.getData() }.reduce { acc, l -> acc * l }
             2 -> subPackets.minOf { it.getData() }
@@ -111,7 +113,7 @@ private data class Packet(
             5 -> if (subPackets[0].getData() > subPackets[1].getData()) 1 else 0
             6 -> if (subPackets[0].getData() < subPackets[1].getData()) 1 else 0
             7 -> if (subPackets[0].getData() == subPackets[1].getData()) 1 else 0
-            else-> throw UnsupportedOperationException("TypeId $typeId not supported.")
+            else -> throw UnsupportedOperationException("TypeId $typeId not supported.")
         }
     }
 }
