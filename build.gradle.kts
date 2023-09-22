@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.7.0"
+    kotlin("jvm") version "1.9.10"
 }
 
 repositories {
@@ -11,7 +11,7 @@ dependencies {
 
 tasks {
     wrapper {
-        gradleVersion = "7.5.1"
+        gradleVersion = "8.3"
     }
 }
 
